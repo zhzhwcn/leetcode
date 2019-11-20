@@ -9,67 +9,54 @@ namespace LeetCode
     {
         static void Main(string[] args)
         {
+            var node1 = new ListNode(4);
+            var node2 = new ListNode(3);
+            node2.next = node1;
+            var node3 = new ListNode(1);
+            node3.next = node2;
+            var node4 = new ListNode(4);
+            var node5 = new ListNode(2);
+            node5.next = node4;
+            var node6 = new ListNode(1);
+            node6.next = node5;
             var r = "{[]}}";
-            Console.WriteLine(new Solution().IsValid(r));
+            Console.WriteLine(new Solution().MergeTwoLists(node3, node6));
         }
     }
 
     public class Solution
     {
-        public bool IsValid(string s)
+        public ListNode MergeTwoLists(ListNode l1, ListNode l2)
         {
-            if (string.IsNullOrEmpty(s)) return true;
-            var arr = s.ToCharArray();
-            var pair = new [] { '(', '[', '{' };
-            var pairClose = new[] { ')', ']', '}' };
-            var pairStack = new Stack<char>();
-            char? currentChar = null;
-            for (int i = 0; i < arr.Length; i++)
+            if (l1 == null && l2 == null) return null;
+            var newNode = new ListNode(0);
+            if(l2 == null && l1 != null)
             {
-                var index = Array.IndexOf(pair, arr[i]);
-                if(index != -1)
-                {
-                    if(currentChar != null)
-                    {
-                        pairStack.Push(currentChar.Value);
-                    }
-
-                    currentChar = arr[i];
-                }
-                else
-                {
-                    index = Array.IndexOf(pairClose, arr[i]);
-                    if(index != -1)
-                    {
-                        if (currentChar == null) return false;
-                        var check = Array.IndexOf(pair, currentChar);
-                        if(check != index)
-                        {
-                            return false;
-                        }
-                        else
-                        {
-                            if(pairStack.Count == 0)
-                            {
-                                currentChar = null;
-                            }
-                            else
-                            {
-                                currentChar = pairStack.Pop();
-                            }
-                        }
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                }
+                newNode.val = l1.val;
+                newNode.next = MergeTwoLists(l1.next, l2);
             }
-            if(currentChar != null || pairStack.Count > 0)
+            else if((l1 == null && l2 != null))
             {
-                return false;
+                newNode.val = l2.val;
+                newNode.next = MergeTwoLists(l1, l2.next);
             }
-            return true;
+            else if(l1.val <= l2.val)
+            {
+                newNode.val = l1.val;
+                newNode.next = MergeTwoLists(l1.next, l2);
+            }
+            else if(l1.val > l2.val)
+            {
+                newNode.val = l2.val;
+                newNode.next = MergeTwoLists(l1, l2.next);
+            }
+            return newNode;
         }
+    }
+    public class ListNode
+    {
+        public int val;
+        public ListNode next;
+        public ListNode(int x) { val = x; }
     }
 }
