@@ -10,18 +10,18 @@ namespace LeetCode
         static void Main(string[] args)
         {
             var r = new[] { 0, 0, 1,1, 1, 2, 2,3,3,4};
-            Console.WriteLine(new Solution().RemoveDuplicates(r));
+            Console.WriteLine(new Solution().RemoveElement(r, 2));
         }
     }
 
     public class Solution
     {
-        public int RemoveDuplicates(int[] nums)
+        public int RemoveElement(int[] nums, int val)
         {
-            var length = nums.Distinct().Count();
-            Array.Copy(nums.Distinct().ToArray(), nums, length);
-            
-            return length;
+            var list = nums.ToList();
+            list.RemoveAll(x => x == val);
+            Array.Copy(list.ToArray(), nums, list.Count);
+            return list.Count;
         }
     }
 }
