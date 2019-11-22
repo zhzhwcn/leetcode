@@ -9,47 +9,28 @@ namespace LeetCode
     {
         static void Main(string[] args)
         {
-            var r = new[] { 0, 0, 1,1, 1, 2, 2,3,3,4};
-            Console.WriteLine(new Solution().CountAndSay(5));
+            var r = new[] { 9 };
+            Console.WriteLine(new Solution().PlusOne(r));
         }
     }
 
     public class Solution
     {
-        public string CountAndSay(int n)
+        public int[] PlusOne(int[] digits)
         {
-            var start = "1";
-            if (n == 1)
+            var last = digits.Length - 1;
+            while (last >= 0 && digits[last] == 9)
             {
-                return start;
+                digits[last] = 0;
+                last--;
             }
-            //start = "11";
-            for (var i = 2; i <= n; i++)
+            if(last < 0)
             {
-                var charArray = start.ToCharArray();
-                var sb = new StringBuilder();
-                var count = 1;
-                var lastChar = charArray[0];
-                for (var j = 0; j < charArray.Length - 1; j++)
-                {
-                    if (charArray[j] != charArray[j + 1])
-                    {
-                        sb.Append(count);
-                        sb.Append(charArray[j]);
-                        count = 1;
-                        lastChar = charArray[j + 1];
-                    }
-                    else
-                    {
-                        count++;
-                    }
-                }
-                sb.Append(count);
-                sb.Append(lastChar);
-                start = sb.ToString();
-                if (i == n) return start;
+                Array.Resize(ref digits, digits.Length + 1);
+                last = 0;
             }
-            return "";
+            digits[last]++;
+            return digits;
         }
     }
 }
