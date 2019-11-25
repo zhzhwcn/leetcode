@@ -18,15 +18,29 @@ namespace LeetCode
 
     public class Solution
     {
-        public static Dictionary<int, int> cache = new Dictionary<int, int>(); 
-        public int ClimbStairs(int n)
+        public static Dictionary<int, int> cache = new Dictionary<int, int>();
+        public ListNode DeleteDuplicates(ListNode head)
         {
-            if (n == 1) return 1;
-            if (n == 2) return 2;
-            if (cache.ContainsKey(n)) return cache[n];
-            var s = this.ClimbStairs(n - 1) + this.ClimbStairs(n - 2);
-            cache[n] = s;
-            return s;
+            var node = head;
+            while (node.next != null)
+            {
+                if(node.next.val == node.val)
+                {
+                    node.next = node.next.next;
+                }
+                else
+                {
+                    node = node.next;
+                }
+            }
+            return head;
         }
+    }
+
+    public class ListNode
+    {
+        public int val;
+        public ListNode next;
+        public ListNode(int x) { val = x; }
     }
 }
