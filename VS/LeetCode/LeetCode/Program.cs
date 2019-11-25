@@ -19,21 +19,10 @@ namespace LeetCode
     public class Solution
     {
         public static Dictionary<int, int> cache = new Dictionary<int, int>();
-        public ListNode DeleteDuplicates(ListNode head)
+        public void Merge(int[] nums1, int m, int[] nums2, int n)
         {
-            var node = head;
-            while (node.next != null)
-            {
-                if(node.next.val == node.val)
-                {
-                    node.next = node.next.next;
-                }
-                else
-                {
-                    node = node.next;
-                }
-            }
-            return head;
+            Array.Copy(nums2, 0, nums1, m, nums2.Length);
+            Array.Sort(nums1);
         }
     }
 
