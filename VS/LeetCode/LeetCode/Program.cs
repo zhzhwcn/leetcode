@@ -30,24 +30,22 @@ namespace LeetCode
             q.left = ql;
             var qr = new TreeNode(3);
             q.right = qr;
-            Console.WriteLine(new Solution().IsBalanced(q));
+            Console.WriteLine(new Solution().MinDepth(q));
         }
     }
 
     public class Solution
     {
-        public bool IsBalanced(TreeNode root)
+        public int MinDepth(TreeNode root)
         {
-            if (root == null) return true;
-            var left = Height(root.left);
-            var right = Height(root.right);
-            return Math.Abs(left - right) <= 1;
-        }
-
-        public int Height(TreeNode node)
-        {
-            if (node == null) return 0;
-            return 1 + Math.Max(Height(node.left), Height(node.right));
+            if (root == null) return 0;
+            int Calc(TreeNode node)
+            {
+                if (root.left == null && root.right == null) return 1;
+                return 1 + Math.Min(MinDepth(root.left), MinDepth(root.right));
+            }
+            return Calc(root);
+            
         }
     }
 
