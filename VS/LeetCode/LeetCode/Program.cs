@@ -15,27 +15,40 @@ namespace LeetCode
             var p = new TreeNode(1);
             var pl = new TreeNode(2);
             p.left = pl;
-            var pr = new TreeNode(3);
+            var pr = new TreeNode(2);
             p.right = pr;
+            var p2l1 = new TreeNode(3);
+            pl.left = p2l1;
+            var p2r1 = new TreeNode(4);
+            pl.right = p2r1;
+            var p2l2 = new TreeNode(4);
+            pr.left = p2l2;
+            var p2r2 = new TreeNode(3);
+            pr.right = p2r2;
             var q = new TreeNode(1);
             var ql = new TreeNode(2);
             q.left = ql;
             var qr = new TreeNode(3);
             q.right = qr;
-            Console.WriteLine(new Solution().IsSameTree(p, q));
+            Console.WriteLine(new Solution().LevelOrderBottom(p));
         }
     }
 
     public class Solution
     {
-        public static Dictionary<int, int> cache = new Dictionary<int, int>();
-        public bool IsSameTree(TreeNode p, TreeNode q)
+        public IList<IList<int>> List = new List<IList<int>>();
+        public IList<IList<int>> LevelOrderBottom(TreeNode root)
         {
-            if ((p == null && q != null) || p != null && q == null) return false;
-            if (p == null && q == null) return true;
-            if (p.val != q.val) return false;
-            if (IsSameTree(p?.left, q?.left)) return IsSameTree(p?.right, q?.right);
-            return false;
+            LevelOrderBottom(root, 0);
+            return List.Reverse().ToList() ;
+        }
+        public void LevelOrderBottom(TreeNode root, int level)
+        {
+            if (List.Count <= level) List.Add(new List<int>());
+            if (root == null) return;
+            List[level].Add(root.val);
+            LevelOrderBottom(root.left, level + 1);
+            LevelOrderBottom(root.right, level + 1);
         }
     }
 
