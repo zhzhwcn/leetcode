@@ -30,25 +30,24 @@ namespace LeetCode
             q.left = ql;
             var qr = new TreeNode(3);
             q.right = qr;
-            Console.WriteLine(new Solution().SortedArrayToBST(r));
+            Console.WriteLine(new Solution().IsBalanced(q));
         }
     }
 
     public class Solution
     {
-        public TreeNode SortedArrayToBST(int[] nums)
+        public bool IsBalanced(TreeNode root)
         {
-            return SortedArrayToBST(nums, 0, nums.Length - 1);
+            if (root == null) return true;
+            var left = Height(root.left);
+            var right = Height(root.right);
+            return Math.Abs(left - right) <= 1;
         }
 
-        public TreeNode SortedArrayToBST(int[] nums, int low, int high)
+        public int Height(TreeNode node)
         {
-            if (high < low) return null;
-            int mid = low + (int)Math.Ceiling((high - low) / 2D);
-            TreeNode root = new TreeNode(nums[mid]);
-            root.left = SortedArrayToBST(nums, low, mid - 1);
-            root.right = SortedArrayToBST(nums, mid + 1, high);
-            return root;
+            if (node == null) return 0;
+            return 1 + Math.Max(Height(node.left), Height(node.right));
         }
     }
 
