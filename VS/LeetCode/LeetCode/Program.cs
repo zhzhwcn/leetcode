@@ -9,7 +9,7 @@ namespace LeetCode
     {
         static void Main(string[] args)
         {
-            var r = new[] { 9 };
+            var r = new[] { -10, -3, 0, 5, 9 };
             var a = "1";
             var b = "11";
             var p = new TreeNode(1);
@@ -30,25 +30,25 @@ namespace LeetCode
             q.left = ql;
             var qr = new TreeNode(3);
             q.right = qr;
-            Console.WriteLine(new Solution().LevelOrderBottom(p));
+            Console.WriteLine(new Solution().SortedArrayToBST(r));
         }
     }
 
     public class Solution
     {
-        public IList<IList<int>> List = new List<IList<int>>();
-        public IList<IList<int>> LevelOrderBottom(TreeNode root)
+        public TreeNode SortedArrayToBST(int[] nums)
         {
-            LevelOrderBottom(root, 0);
-            return List.Reverse().ToList() ;
+            return SortedArrayToBST(nums, 0, nums.Length - 1);
         }
-        public void LevelOrderBottom(TreeNode root, int level)
+
+        public TreeNode SortedArrayToBST(int[] nums, int low, int high)
         {
-            if (List.Count <= level) List.Add(new List<int>());
-            if (root == null) return;
-            List[level].Add(root.val);
-            LevelOrderBottom(root.left, level + 1);
-            LevelOrderBottom(root.right, level + 1);
+            if (high < low) return null;
+            int mid = low + (int)Math.Ceiling((high - low) / 2D);
+            TreeNode root = new TreeNode(nums[mid]);
+            root.left = SortedArrayToBST(nums, low, mid - 1);
+            root.right = SortedArrayToBST(nums, mid + 1, high);
+            return root;
         }
     }
 
