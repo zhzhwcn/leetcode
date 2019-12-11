@@ -30,22 +30,18 @@ namespace LeetCode
             q.left = ql;
             var qr = new TreeNode(3);
             q.right = qr;
-            Console.WriteLine(new Solution().MinDepth(q));
+            Console.WriteLine(new Solution().HasPathSum(q, 10));
         }
     }
 
     public class Solution
     {
-        public int MinDepth(TreeNode root)
+        public bool HasPathSum(TreeNode root, int sum)
         {
-            if (root == null) return 0;
-            int Calc(TreeNode node)
-            {
-                if (root.left == null && root.right == null) return 1;
-                return 1 + Math.Min(MinDepth(root.left), MinDepth(root.right));
-            }
-            return Calc(root);
-            
+            if (root == null && sum != 0) return false;
+            sum -= root.val;
+            if (sum == 0 && root.left == null && root.right == null) return true;
+            return HasPathSum(root.left, sum) || HasPathSum(root.right, sum);
         }
     }
 
