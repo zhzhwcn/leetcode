@@ -9,7 +9,7 @@ namespace LeetCode
     {
         static void Main(string[] args)
         {
-            var r = new[] { -10, -3, 0, 5, 9 };
+            var r = new[] { 4, 1, 2, 1, 2 };
             var a = "1";
             var b = "11";
             var p = new TreeNode(1);
@@ -30,38 +30,21 @@ namespace LeetCode
             q.left = ql;
             var qr = new TreeNode(3);
             q.right = qr;
-            Console.WriteLine(new Solution().IsPalindrome("A man, a plan, a canal: Panama"));
+            Console.WriteLine(new Solution().SingleNumber(r));
         }
     }
 
     public class Solution
     {
-        public bool IsPalindrome(string s)
+        public int SingleNumber(int[] nums)
         {
-            var chars = s.ToLower().ToCharArray();
-            var start = 0;
-            var end = chars.Length - 1;
-            while (start < end)
+            Array.Sort(nums);
+            for (var i = 0; i < nums.Length; i+=2)
             {
-                while(start < chars.Length)
-                {
-                    if ((chars[start] >= 97 && chars[start] <= 122) || (chars[start] >= 48 && chars[start] <= 57)) break;
-                    start++;
-                }
-                while(end >= 0)
-                {
-                    if ((chars[end] >= 97 && chars[end] <= 122) || (chars[end] >= 48 && chars[end] <= 57)) break;
-                    end--;
-                }
-                if (start > end) return true;
-                if (chars[start] != chars[end])
-                {
-                    return false;
-                }
-                start++;
-                end--;
+                if (i + 1 == nums.Length) return nums[i];
+                if (nums[i] != nums[i + 1]) return nums[i];
             }
-            return true;
+            return 0;
         }
     }
 
