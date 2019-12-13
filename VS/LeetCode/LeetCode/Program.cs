@@ -30,18 +30,38 @@ namespace LeetCode
             q.left = ql;
             var qr = new TreeNode(3);
             q.right = qr;
-            Console.WriteLine(new Solution().HasPathSum(q, 10));
+            Console.WriteLine(new Solution().IsPalindrome("A man, a plan, a canal: Panama"));
         }
     }
 
     public class Solution
     {
-        public bool HasPathSum(TreeNode root, int sum)
+        public bool IsPalindrome(string s)
         {
-            if (root == null && sum != 0) return false;
-            sum -= root.val;
-            if (sum == 0 && root.left == null && root.right == null) return true;
-            return HasPathSum(root.left, sum) || HasPathSum(root.right, sum);
+            var chars = s.ToLower().ToCharArray();
+            var start = 0;
+            var end = chars.Length - 1;
+            while (start < end)
+            {
+                while(start < chars.Length)
+                {
+                    if ((chars[start] >= 97 && chars[start] <= 122) || (chars[start] >= 48 && chars[start] <= 57)) break;
+                    start++;
+                }
+                while(end >= 0)
+                {
+                    if ((chars[end] >= 97 && chars[end] <= 122) || (chars[end] >= 48 && chars[end] <= 57)) break;
+                    end--;
+                }
+                if (start > end) return true;
+                if (chars[start] != chars[end])
+                {
+                    return false;
+                }
+                start++;
+                end--;
+            }
+            return true;
         }
     }
 
