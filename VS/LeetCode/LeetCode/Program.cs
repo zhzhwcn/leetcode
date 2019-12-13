@@ -63,4 +63,35 @@ namespace LeetCode
         public TreeNode(int x) { val = x; }
     }
 
+    public class MinStack
+    {
+
+        /** initialize your data structure here. */
+        private Stack<int> _stack;
+        public MinStack()
+        {
+            _stack = new Stack<int>();
+        }
+
+        public void Push(int x)
+        {
+            _stack.Push(x);
+        }
+
+        public void Pop()
+        {
+            _stack.Pop();
+        }
+
+        public int Top()
+        {
+            return _stack.FirstOrDefault();
+        }
+
+        public int GetMin()
+        {
+            return _stack.Min();
+        }
+    }
+
 }
