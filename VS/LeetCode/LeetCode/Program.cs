@@ -30,21 +30,28 @@ namespace LeetCode
             q.left = ql;
             var qr = new TreeNode(3);
             q.right = qr;
-            Console.WriteLine(new Solution().SingleNumber(r));
+            Console.WriteLine(new Solution().ConvertToTitle(27));
         }
     }
 
     public class Solution
     {
-        public int SingleNumber(int[] nums)
+        public string ConvertToTitle(int n)
         {
-            Array.Sort(nums);
-            for (var i = 0; i < nums.Length; i+=2)
+            var result = "";
+            while (n > 0)
             {
-                if (i + 1 == nums.Length) return nums[i];
-                if (nums[i] != nums[i + 1]) return nums[i];
+                var mod = n % 26;
+                if (mod == 0)
+                {
+                    mod = 26;
+                }
+                result = ((char) (mod + 64)).ToString() + result;
+                n = (n - mod) / 26;
             }
-            return 0;
+            
+
+            return result;
         }
     }
 
